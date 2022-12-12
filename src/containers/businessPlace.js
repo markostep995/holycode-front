@@ -4,11 +4,14 @@ import { useForm } from "react-hook-form";
 import InputFieldWithLabel from "../common/inputFieldWithLabel";
 import Button from "../common/button";
 import Table from "../common/Table";
+import Style from "./businessPlace.module.css";
 
 export default function BusinessPlace() {
   const dispatch = useDispatch();
   const { handleSubmit, register } = useForm();
   const { businessPlace } = useSelector((state) => state.businessPlace);
+
+  const isOpen = businessPlace?.open;
 
   const getBusinessPlaceData = (data) => {
     dispatch(getBusinessPlaceById(data?.businessPlaceId));
@@ -47,6 +50,11 @@ export default function BusinessPlace() {
           </div>
         </form>
 
+        {isOpen ? (
+          <div className={Style.opened}>Open</div>
+        ) : (
+          <div className={Style.closed}>Close</div>
+        )}
         <Table
           title={
             businessPlace?.name
